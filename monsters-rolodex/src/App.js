@@ -3,35 +3,53 @@ import { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-  constructor() {
+  constructor () {
     super();
 
     this.state = {
-      monsters: []
+      monsters: [],
+      searchValue: ''
     }
   }
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json())
-    .then(users => this.setState({monsters: users},() => {console.log(this.state)}))
+  componentDidMount(){
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then((res) => res.json())
+    .then((users) => this.setState(() => {
+      return {monsters: users}
+    }))
   }
 
-  render(){
+
+
+  render() {
+    const filteredMonsters = this.state.monsters.filter((mon) => {
+      return mon.name.toLocaleLowerCase().includes(this.state.searchValue)
+    })
     return (
       <div className='App'>
+        <input
+          className='search-box'
+          type='text'
+          placeholder='search box'
+          onChange={
+            (event) => {
+              const searchValue = event.target.value.toLocaleLowerCase();
+              this.setState({searchValue})
+            }
+          }
+        />
         {
-        this.state.monsters.map((user) => {
-          return (
-            <div key={user.id}>
-              <h1>{user.name}</h1>
-            </div>
-          ) 
-        })
+          filteredMonsters.map((monster) => {
+            return (<div key={monster.id}>
+              <h1>{monster.name}</h1>
+            </div>)
+          })
         }
       </div>
     )
   }
 }
-
 export default App;
+
+
