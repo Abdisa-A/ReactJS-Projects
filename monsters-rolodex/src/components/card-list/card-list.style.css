@@ -1,18 +1,7 @@
-.card-list{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.monster-card {
-    width: 320px;
-    background-color: #eee;
-    height: 350px;
-    margin: 0 20px 40px 0;
-    border-radius: 10px;
-}
-
-.monster-card:hover{
-    box-shadow: 0 15px 10px #33333352;
+.card-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 0 auto;
+  width: 85.5vw;
+  grid-gap: 20px;
 }

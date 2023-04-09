@@ -1,13 +1,12 @@
 .search-box {
-    -webkit-appearance: none;
-    border: none;
-    outline: none;
-    padding: 10px 40px;
-    width: 150px;
-    line-height: 30px;
-    margin-bottom: 30px;
-    margin-top: 20px;
-    border-radius: 30px;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  padding: 10px 40px;
+  width: 150px;
+  line-height: 30px;
+  margin-bottom: 50px;
+  border-radius: 30px;
 }
 .search-box::placeholder {
   text-transform: uppercase;
