@@ -1,6 +1,5 @@
 import "./directory.styles.scss";
 import CategoryItem from "../category-item/category-item";
-import Navigation from "../../routes/navigation/navigation.component";
 
 const Directory = ({ categories }) => {
   return (

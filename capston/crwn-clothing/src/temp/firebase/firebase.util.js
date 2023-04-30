@@ -6,6 +6,8 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAg0IFacXHIakEMXMsskaBP0JAC2TK2DhA",
   authDomain: "e-commerce-platform-f77fb.firebaseapp.com",
@@ -22,6 +24,29 @@ const googleAuthProvider = new GoogleAuthProvider();
 googleAuthProvider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = getAuth();
-console.log(auth);
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleAuthProvider);
+
+export const db = getFirestore();
+
+export const createUserDocFromAuth = async (userAuth) => {
+  const userDocRef = doc(db, "user", userAuth.uid);
+
+  console.log(userDocRef);
+
+  const userSnapShot = await getDoc(userDocRef);
+
+  console.log(userSnapShot, userSnapShot.exists());
+
+  if (!userSnapShot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userDocRef, { displayName, email, createdAt });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+};
