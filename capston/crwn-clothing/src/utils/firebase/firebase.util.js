@@ -5,13 +5,7 @@ import {
   signInWithRedirect,
   GoogleAuthProvider,
 } from "firebase/auth";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD5gqmEuxTL0WvZ50Lm6aoetWTyCLkE_hg",
@@ -31,8 +25,12 @@ provider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = async () =>
-  signInWithPopup(auth, provider);
+
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, provider);
+
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
@@ -47,8 +45,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     try {
       await setDoc(userDocRef, { displayName, email, createdAt });
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   }
-  await updateDoc(userDocRef, { isUpdated: "Yes" });
+  return userDocRef;
 };
